@@ -19,8 +19,10 @@
         <input type="text" class="item input input-title" name="title" value="{{ old('title') }}" id="title">
         <label for="text" class="item label label-body">Body:</label>
         <textarea name="text" value="{{ old('text') }}" class="item" id="text" cols="30" rows="10"></textarea>
-        <input type="submit" class="cos-btn form-btn" value="Post">
-        <a href="{{ route('home') }}" class="cos-btn">Cancel</a>
+        <div class="btn-margin">
+            <input type="submit" class="cos-btn form-btn" value="Post">
+            <a href="{{ route('home') }}" class="cos-btn">Cancel</a>
+        </div>
     </form>
 </div>
 @endsection
