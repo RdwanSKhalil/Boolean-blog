@@ -1,0 +1,320 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0px;
+}
+
+main{
+    min-height: calc(100vh - 100px);
+}
+
+// app.layout styles
+.footer{
+    font-size: 16px;
+    background-color: $primary;
+    color: $textColor;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+}
+.ul-footer{
+    display: flex;
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+.navbar-home{
+    background-color: $primary;
+    display: flex;
+    padding: 10px;
+    height: 50px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+    .user-profile{
+        font-size: 20px;
+        color: $textColor;
+    }
+    a{
+        color: $textColor;
+        text-decoration: none;
+    }
+    ul{
+        display: flex;
+        justify-content: flex-start;
+    }
+    li{
+        margin-right: 10px;
+    }
+    ul.creds{
+        font-size: 22px;
+    }
+    ul.logo{
+        font-size: 30px;
+    }
+}
+// end of app.layout styles
+
+
+// home page styles
+.wrapper{
+    margin: 0px 100px;
+    box-sizing: border-box;
+}
+
+.home-controls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.cos-btn{
+    background: transparent;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid $primary;
+    &:hover{
+        background-color: $secondary;
+        color: #fff;
+    }
+}
+
+.li-posts{
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: $secondary;
+    border: 1px solid $primary;
+    border-radius: 10px;
+}
+.posts{
+    display: flex;
+    margin-bottom: 30px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    .post-title{
+        font-size: 38px;
+        font-weight: bold;
+    }
+    .info{
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    .post-img{
+        max-width: 600px;
+        border-radius: 20px;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 10px;
+    }
+    .post-date, .post-author{
+        font-size: 12px;
+    }
+}
+// end of home page styles
+
+
+// start of create post page styles
+.form{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .item{
+        width: 100%;
+    }
+    .label{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .form-btn{
+        width: 100px;
+    }
+    .input-file{
+        width: 210px;
+    }
+    textarea{
+        border-radius: 10px;
+        padding: 6px;
+    }
+    .input-title{
+        border-radius: 10px;
+        padding: 6px;
+    }
+}
+// end of create post page styles
+
+
+// Start of the show page styles
+.flex-div{
+    display: flex;
+    flex-direction: column;
+}
+.image-div{
+    display: flex;
+    margin-bottom: 10px;
+    .img{
+        flex: 1;
+        height: 500px;
+        width: 70%;
+        border-radius: 20px;
+        border: 1px solid;
+        box-shadow: 5px 5px;
+    }
+}
+
+.body-div{
+    border-bottom: 1px solid $primary;
+    margin-bottom: 20px;
+    .header-div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h6{
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+    }
+    .controls{
+        display: flex;
+        justify-content: right;
+        align-items: right;
+    }
+    p{
+        font-size: 18px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+}
+
+.comment-div{
+    margin-bottom: 20px;
+    form{
+        display: inline;
+        textarea{
+            width: 100%;
+            border-radius: 10px;
+            padding: 6px;
+            resize: none;
+        }
+    }
+
+    .commentors{
+        margin-top: 15px;
+        background: #e5e5e5;
+        border-radius: 10px;
+        padding: 10px;
+        h5, h6{ 
+            display: inline;
+        }
+        p{
+            margin: 0px;
+            margin-bottom: 6px;
+            word-wrap: break-word;
+        }
+        .comment-controls{
+            border: none;
+            display: inline-block;
+            background: transparent;
+            color: $primary;
+            font-weight: bold;
+            font-size: 12px;
+            &:hover{
+                transform: translateY(-1.5px);
+            }
+            transition: transform 0.15s;
+            transition-timing-function: ease-in-out;
+        }
+        .reply{
+            height: 25px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-left: 10px;
+            padding: 5px;
+            width: 20%;
+        }
+    }
+
+    .replies{
+        margin-top: 15px;
+        margin-left: 50px;
+        background: #e5e5e5;
+        border-radius: 10px;
+        padding: 10px;
+        h5, h6{ 
+            display: inline;
+        }
+        p{
+            margin: 0px;
+        }
+        .comment-controls{
+            border: none;
+            background: transparent;
+            color: $primary;
+            font-weight: bold;
+            font-size: 12px;
+            &:hover{
+                transform: translateY(-1.5px);
+            }
+            transition: transform 0.15s;
+            transition-timing-function: ease-in-out;
+        }
+    }
+}
+// End of the show page styles
+
+
+// Start of the user page styles
+.user-header{
+    border-bottom: 1px solid $primary;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    .user-name{
+        font-weight: bold;
+    }
+    .user-nav{
+        a{
+            margin-right: 20px;
+            font-size: 18px;
+        }
+    }
+}
+
+.commentors{
+    margin-top: 15px;
+    background: #e5e5e5;
+    border-radius: 10px;
+    padding: 10px;
+    h5, h6{ 
+        display: inline;
+    }
+    p{
+        margin: 0px;
+        margin-bottom: 6px;
+        word-wrap: break-word;
+    }
+}
+.info-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+// End of the user page styles
