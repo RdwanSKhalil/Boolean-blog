@@ -25,9 +25,11 @@
             <ul class="logo">
                 <li><a href="{{ url('/') }}">Blog</a></li>
             </ul>
-            <ul>
-                <li class="user-profile"><a class="user-profile" href="{{ route('user.show', Auth::user()->id) }}">{{ Auth::user()->name }}</a></li>
-            </ul>
+            @if(Auth::check())
+                <ul>
+                    <li class="user-profile"><a class="user-profile" href="{{ route('user.show', Auth::user()->id) }}">{{ Auth::user()->name }}</a></li>
+                </ul>
+            @endif
             <ul class="creds">
                 @if(Auth::check())
                     <li><a href="{{ route('logout') }}"

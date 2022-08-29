@@ -18,7 +18,7 @@ class ReplyController extends Controller
 
         $reply->post_id = $id;
         $reply->user_id = Auth::user()->id;
-        $reply->reply_id = request('reply-id');
+        $reply->comment_id = request('comment-id');
         $reply->reply = request('reply');
 
         $reply->save();

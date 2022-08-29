@@ -11,7 +11,8 @@
         <div class="posts">
             <div class="info">
                 <a href="{{ route('show-post', $post->id) }}"><h1 class="post-title">{{ $post->title }}</h1></a>
-                <h5 class="post-author">Author: <a href="{{ route('user.show', $post->user_id) }}">{{ $post->author }}</a> - Uploaded On: {{ $post->created_at->toDateString(); }}</h5>
+                <h5 class="post-author">
+                    Author: <strong><a href="{{ route('user.show', $post->user_id) }}">{{ $post->author }}</a></strong> - Uploaded On: {{ $post->created_at->toDateString(); }}</h5>
                 <p class="post-desc">{{ Str::limit($post->text, 500) }}</p>
             </div>
             <div class="image"> 

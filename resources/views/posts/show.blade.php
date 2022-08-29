@@ -24,7 +24,7 @@
 
             <div class="header-div">
                 <h1>{{ $post->title }}</h1>
-                <h6>Author: <a href="{{ route('user.show', $post->user_id) }}">{{ $post->author }}</a> - Date Published: {{ $post->created_at->toDateString(); }}</h6>
+                <h6>Author: <strong><a href="{{ route('user.show', $post->user_id) }}">{{ $post->author }}</a></strong> - Date Published: {{ $post->created_at->toDateString(); }}</h6>
             </div>
 
             <div class="text-div">

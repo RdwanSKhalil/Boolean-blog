@@ -6,7 +6,7 @@
         <h1 class="user-name">{{ $user->name }}'s Profile</h1>
         <div class="user-info">
             <h6><strong>Registered On:</strong> {{ $user->created_at->toDateString() }}</h6>
-            <h6><strong>Email Address On:</strong> {{ $user->email }}</h6>
+            <h6><strong>Email Address:</strong> {{ $user->email }}</h6>
         </div>
         <div class="user-info">
             <h6><strong>No. Posts:</strong> {{ $postsCount }}</h6>
