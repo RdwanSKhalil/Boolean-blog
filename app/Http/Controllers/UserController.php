@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use DB;
 
 class UserController extends Controller
 {
@@ -26,7 +27,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        $posts = $user->posts;
+        $posts = DB::table('posts')->orderBy('created_at', 'desc')->where('user_id', '=' ,$user->id)->get();
 
         $postsCount = $posts->count();
 
@@ -41,14 +42,12 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        $posts = $user->posts;
+        $postsCount = $user->posts->count();;
 
-        $postsCount = $posts->count();
-
-        $comments = $user->comments;
+        $comments = DB::table('comments')->orderBy('created_at', 'desc')->where('commenter_id', '=' ,$user->id)->get();
 
         $commentsCount = $comments->count();
 
-        return view('users.comments', ['user' => $user, 'comments' => $comments, 'posts' => $posts, 'postsCount' => $postsCount, 'commentsCount' => $commentsCount]);
+        return view('users.comments', ['user' => $user, 'comments' => $comments, 'postsCount' => $postsCount, 'commentsCount' => $commentsCount]);
     }
 }

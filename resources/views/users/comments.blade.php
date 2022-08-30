@@ -19,7 +19,7 @@
     </div>
     @foreach($comments as $comment)
     <div class="commentors">
-        <h5><strong>{{ $user->name }}</strong> - </h5><h6>Commented on: {{ $comment->created_at->toDateString() }}</h6>
+        <h5><strong>{{ $user->name }}</strong> - </h5><h6>Commented on: {{ Carbon\Carbon::parse($comment->created_at)->format('Y-m-d') }}</h6>
         <p>{{ $comment->comment }}</p>
     </div>
     @endforeach
