@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\comment;
+use Str;
 use Auth;
 
 class CommentController extends Controller
@@ -18,7 +19,7 @@ class CommentController extends Controller
 
         $comment->post_id = $id;
         $comment->commenter_id = Auth::user()->id;
-        $comment->comment = request('comment');
+        $comment->comment = Str::limit(request('comment'), 1000);
 
         $comment->save();
         

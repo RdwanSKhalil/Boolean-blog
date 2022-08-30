@@ -15,7 +15,10 @@ ul{
     list-style-type: none;
     margin: 0px;
 }
-
+.wrapper{
+    margin: 0px 100px;
+    box-sizing: border-box;
+}
 main{
     min-height: calc(100vh - 100px);
 }
@@ -43,7 +46,7 @@ main{
     margin-bottom: 20px;
     align-items: center;
     .user-profile{
-        font-size: 20px;
+        font-size: 24px;
         color: $textColor;
     }
     a{
@@ -63,16 +66,37 @@ main{
     ul.logo{
         font-size: 30px;
     }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: whitesmoke;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      .dropdown-content a {
+        padding: 5px 8px;
+        font-size: 20px;
+        color: $primary;
+        font-weight: bold;
+        display: block;
+        &:hover{
+            border-radius: 8px;
+            background-color: darken($color: white, $amount: 10%);
+        }
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+        border-radius: 8px;
+      }
 }
 // end of app.layout styles
 
 
 // home page styles
-.wrapper{
-    margin: 0px 100px;
-    box-sizing: border-box;
-}
-
 .home-controls{
     display: flex;
     align-items: center;
@@ -117,6 +141,7 @@ main{
     }
     .post-img{
         max-width: 600px;
+        width: 100%;
         border-radius: 20px;
         border: 1px solid;
         padding: 10px;
@@ -176,8 +201,8 @@ main{
     margin-bottom: 10px;
     .img{
         flex: 1;
-        height: 500px;
-        width: 70%;
+        height: 50%;
+        width: 50%;
         border-radius: 20px;
         border: 1px solid;
         box-shadow: 5px 5px;
@@ -296,9 +321,13 @@ main{
         font-weight: bold;
     }
     .user-nav{
+        margin-bottom: 10px;
+        margin-right: 20px;
         a{
-            margin-right: 20px;
             font-size: 18px;
+        }
+        a:nth-child(1){
+            margin-right: 10px;
         }
     }
 }
@@ -317,6 +346,7 @@ main{
         word-wrap: break-word;
     }
 }
+
 .info-flex{
     display: flex;
     justify-content: center;
@@ -324,3 +354,28 @@ main{
     margin-top: 50px;
 }
 // End of the user page styles
+
+//  Responsive Design
+@media only screen and (max-width: 1101px){
+    .wrapper{
+        margin: 30px;
+    }
+    .posts{
+        flex-direction: column-reverse;
+    }
+    .ul-footer{
+        li{
+            font-size: 13px;
+        }
+    }
+    .posts > div{
+        flex: 1;
+    }
+}
+    @media only screen and (max-width: 923px){
+        .user-header{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+}

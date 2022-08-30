@@ -22,21 +22,22 @@
 <body>
     <div id="app">
         <nav class="navbar-home">
+
             <ul class="logo">
                 <li><a href="{{ url('/') }}">Blog</a></li>
             </ul>
-            @if(Auth::check())
-                <ul>
-                    <li class="user-profile"><a class="user-profile" href="{{ route('user.show', Auth::user()->id) }}">{{ Auth::user()->name }}</a></li>
-                </ul>
-            @endif
+
             <ul class="creds">
                 @if(Auth::check())
-                    <li><a href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                    </a></li>
+
+                    <li>
+                        <div class="dropdown">
+                            <a class="user-profile" href="{{ route('user.show', Auth::user()->id) }}">{{ Auth::user()->name }}</a>
+                            <div class="dropdown-content">
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ __('Logout') }}</a>
+                            </div>
+                        </div>
+                    </li>
                 @else
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
@@ -45,6 +46,7 @@
                          @csrf
                     </form>
             </ul>
+
         </nav>
 
         <main>

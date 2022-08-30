@@ -40,7 +40,7 @@ class PostController extends Controller
     public function show($id){
 
         $post = post::findOrFail($id);
-        
+
         $comments = comment::join("users", "users.id", "=", "comments.commenter_id")->select(
         'comments.id',
         'comments.comment',
