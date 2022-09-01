@@ -29,7 +29,6 @@
 
             <ul class="creds">
                 @if(Auth::check())
-
                     <li>
                         <div class="dropdown">
                             <a class="user-profile" href="{{ route('user.show', Auth::user()->id) }}">{{ Auth::user()->name }}</a>

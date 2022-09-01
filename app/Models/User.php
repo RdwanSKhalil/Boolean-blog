@@ -20,7 +20,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'img_path',
     ];
+
+    protected $attributes = array(
+        'img_path' => "images/user-alt-img.jpg",
+     );
 
     /**
      * The attributes that should be hidden for serialization.

@@ -7,6 +7,7 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+// Common Styles
 a{
     text-decoration: none;
 }
@@ -22,6 +23,21 @@ ul{
 main{
     min-height: calc(100vh - 100px);
 }
+.comment-controls{
+    border: none;
+    display: inline-block;
+    background: transparent;
+    color: $primary;
+    font-weight: bold;
+    font-size: 12px;
+    &:hover{
+        transform: translateY(-1.5px);
+    }
+    transition: transform 0.15s;
+    transition-timing-function: ease-in-out;
+}
+// End of common Styles
+
 
 // app.layout styles
 .footer{
@@ -68,8 +84,9 @@ main{
     }
     .dropdown {
         position: relative;
+        margin-right: 12px;
         display: inline-block;
-      }
+    }
       .dropdown-content {
         display: none;
         position: absolute;
@@ -138,6 +155,13 @@ main{
     .info{
         text-align: justify;
         text-justify: inter-word;
+        max-width: 45%;
+        .user-img{
+            max-width: 50px;
+            height: 50px;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
     }
     .post-img{
         max-width: 600px;
@@ -150,6 +174,7 @@ main{
     .post-date, .post-author{
         font-size: 12px;
     }
+
 }
 // end of home page styles
 
@@ -158,10 +183,12 @@ main{
 .form{
     display: flex;
     gap: 10px;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     .item{
-        width: 100%;
+        width: 60%;
     }
     .label{
         font-size: 20px;
@@ -179,11 +206,21 @@ main{
     }
     .input-title{
         border-radius: 10px;
-        padding: 6px;
+        padding: 3px;
     }
     .btn-margin{
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 60%;
         input{
+            margin-right: 10px;
+        }
+    }
+    .choose-image-div{
+        width: 60%;
+        margin-top: 20px;
+        label{
             margin-right: 10px;
         }
     }
@@ -191,7 +228,7 @@ main{
 // end of create post page styles
 
 
-// Start of the show page styles
+// Start of the post show page styles
 .flex-div{
     display: flex;
     flex-direction: column;
@@ -201,8 +238,8 @@ main{
     margin-bottom: 10px;
     .img{
         flex: 1;
-        height: 50%;
-        width: 50%;
+        height: 30%;
+        width: 30%;
         border-radius: 20px;
         border: 1px solid;
         box-shadow: 5px 5px;
@@ -216,9 +253,17 @@ main{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        margin-bottom: 40px;
+        .author-img{
+            width: 50px;
+            height: 50px;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
         h6{
             font-size: 12px;
             margin-bottom: 20px;
+            display: inline;
         }
     }
     .controls{
@@ -258,29 +303,15 @@ main{
             margin-bottom: 6px;
             word-wrap: break-word;
         }
-        .comment-controls{
-            border: none;
-            display: inline-block;
-            background: transparent;
-            color: $primary;
-            font-weight: bold;
-            font-size: 12px;
-            &:hover{
-                transform: translateY(-1.5px);
-            }
-            transition: transform 0.15s;
-            transition-timing-function: ease-in-out;
-        }
-        .reply{
-            height: 25px;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-left: 10px;
-            padding: 5px;
-            width: 20%;
-        }
     }
-
+    .reply{
+        height: 25px;
+        border-radius: 6px;
+        font-size: 12px;
+        margin-left: 10px;
+        padding: 5px;
+        width: 20%;
+    }
     .replies{
         margin-top: 15px;
         margin-left: 50px;
@@ -293,19 +324,18 @@ main{
         p{
             margin: 0px;
         }
-        .comment-controls{
-            border: none;
-            background: transparent;
-            color: $primary;
-            font-weight: bold;
-            font-size: 12px;
-            &:hover{
-                transform: translateY(-1.5px);
-            }
-            transition: transform 0.15s;
-            transition-timing-function: ease-in-out;
-        }
     }
+    .reply-reply{
+        margin-left: 100px;
+    }
+}
+.commentator-img{
+    display: inline-block;
+    max-width: 40px;
+    height: 35px;
+    border-radius: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 // End of the show page styles
 
@@ -317,8 +347,44 @@ main{
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+    .user-img{
+        width: 90px;
+        height: 90px;
+        border-radius: 20px;
+    }
+    .user-img-div{
+        padding-bottom: 10px;
+    }
+    .user-img-change{
+        max-width: 32px;
+        min-width: 32px;
+    }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        left: 29px;
+        bottom: 35px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      .dropdown-content a {
+        font-weight: bold;
+        display: block;
+        &:hover{
+            border-radius: 8px;
+        }
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+        border-radius: 8px;
+    }
     .user-name{
         font-weight: bold;
+        font-size: 28px;
     }
     .user-nav{
         margin-bottom: 10px;
@@ -329,6 +395,12 @@ main{
         a:nth-child(1){
             margin-right: 10px;
         }
+        a:nth-child(2){
+            margin-right: 10px;
+        }
+    }
+    .hidden-img-input{
+        display: none;
     }
 }
 
@@ -355,6 +427,37 @@ main{
 }
 // End of the user page styles
 
+
+// Start of User-Info-Change Styles
+.form-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+    gap: 24px;
+    .inputs{
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        width: 50%;
+    }
+    .btn-div{
+        display: flex;
+        width: 50%;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .input-field{
+        border-radius: 6px;
+    }
+    .input-label{
+        font-weight: bold;
+        font-size: 16px;
+    }
+}
+// End of User-Info-Change Styles
+
+
 //  Responsive Design
 @media only screen and (max-width: 1101px){
     .wrapper{
@@ -365,17 +468,33 @@ main{
     }
     .ul-footer{
         li{
-            font-size: 13px;
+            font-size: 14px;
         }
     }
     .posts > div{
         flex: 1;
     }
 }
+
     @media only screen and (max-width: 923px){
         .user-header{
             display: flex;
             align-items: center;
             flex-direction: column;
+        }
+}
+
+    @media only screen and (max-width: 504px){
+        .ul-footer{
+            li{
+                font-size: 12px;
+            }
+        }
+}
+        @media only screen and (max-width: 440px){
+        .ul-footer{
+            li{
+                font-size: 11px;
+            }
         }
 }

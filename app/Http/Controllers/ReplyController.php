@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\reply;
+use App\Models\comment;
 use Auth;
 
 class ReplyController extends Controller
@@ -50,5 +51,26 @@ class ReplyController extends Controller
         $reply->update();
         
         return redirect(route('show-post', $reply->post_id));
+    }
+
+    public function storeReply(Request $request, $id){
+
+        $validated = $request->validate([
+            'reply' => 'required|max:255',
+        ]);
+
+        $reply = new reply();
+
+        $comment = comment::findOrFail(request('comment-id'));
+
+        $reply->reply = request('reply');
+        $reply->reply_id = $id;
+        $reply->post_id = $comment->post_id;
+        $reply->user_id = Auth::user()->id;
+        $reply->comment_id = $comment->id;
+
+        $reply->save();
+
+        return redirect()->back();
     }
 }

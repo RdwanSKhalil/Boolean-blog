@@ -13,8 +13,11 @@
     @endif
     <form action="/post" method="POST" class="form" enctype="multipart/form-data">
         @csrf
-        <label for="img" class="item label label-file" name="imgPath-lbl">Image:</label>
-        <input type="file" class="item input-file" id="img" name="imgPath" value="{{ old('imgPath') }}" accept=".gif,.jpg,.jpeg,.png">
+        <div class="choose-image-div">
+            <label for="img" class="label label-file" name="imgPath-lbl">Image:</label>
+            <input type="file" class="item input-file" id="img" name="imgPath" value="{{ old('imgPath') }}" accept=".gif,.jpg,.jpeg,.png">
+            <img src="" alt="">
+        </div>
         <label for="title" class="item label label-title">Title:</label>
         <input type="text" class="item input input-title" name="title" value="{{ old('title') }}" id="title">
         <label for="text" class="item label label-body">Body:</label>

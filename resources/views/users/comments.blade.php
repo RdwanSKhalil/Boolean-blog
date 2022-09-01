@@ -1,26 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
-@section('content')
-<div class="wrapper">
-    <div class="user-header">
-        <h1 class="user-name">{{ $user->name }}'s Profile</h1>
-        <div class="user-info">
-            <h6><strong>Registered On:</strong> {{ $user->created_at->toDateString() }}</h6>
-            <h6><strong>Email Address:</strong> {{ $user->email }}</h6>
-        </div>
-        <div class="user-info">
-            <h6><strong>No. Posts:</strong> {{ $postsCount }}</h6>
-            <h6><strong>No. Comments:</strong> {{ $commentsCount }}</h6>
-        </div>
-        <div class="user-nav">
-            <a href="{{ route('user.posts', $user->id) }}" class="btn">Posts</a>
-            <a href="{{ route('user.comments', $user->id) }}" class="btn">Comments</a>
-        </div>
-    </div>
+@section('user-content')
     @foreach($comments as $comment)
     <div class="commentors">
         <h5><strong>{{ $user->name }}</strong> - </h5><h6>Commented on: {{ Carbon\Carbon::parse($comment->created_at)->format('Y-m-d') }}</h6>
         <p>{{ $comment->comment }}</p>
+        @if(Auth::check())
+            @if($comment->commenter_id == Auth::user()->id)
+                <form action="{{ route('comment.destroy') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="comment-controls">Delete</button>
+                    <input type="hidden" name="comment-id" value="{{ $comment->id }}">
+                </form>
+            @endif
+        @endif
     </div>
     @endforeach
     @if(count($comments) == 0)
@@ -30,5 +24,4 @@
             </div>
         </div>
     @endif 
-</div>
 @endsection

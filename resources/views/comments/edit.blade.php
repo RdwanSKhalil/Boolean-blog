@@ -15,8 +15,10 @@
         @csrf
         <label for="text" class="item label label-body">Edit Your Comment:</label>
         <textarea name="text" value="{{ $comment->comment }}" class="item" id="text" cols="30" rows="10"></textarea>
-        <input type="submit" class="cos-btn form-btn" value="Edit">
-        <a href="{{ route('show-post', $comment->post_id) }}" class="cos-btn">Cancel</a>
+        <div class="btn-margin">
+            <input type="submit" class="cos-btn form-btn" value="Edit">
+            <a href="{{ route('show-post', $comment->post_id) }}" class="cos-btn">Cancel</a>
+        </div>
     </form>
 </div>
 @endsection

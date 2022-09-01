@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\post;
 use App\Models\comment;
 use App\Models\reply;
-use Auth;
+use Auth, File, DB;
 
 class PostController extends Controller
 {
@@ -41,13 +41,21 @@ class PostController extends Controller
 
         $post = post::findOrFail($id);
 
-        $comments = comment::join("users", "users.id", "=", "comments.commenter_id")->select(
+        if(File::exists($post->img_path) == false){
+            $post->img_path = "images/placeholder-img.webp"; 
+        }
+
+        $author = DB::table('users')->where('id', '=', $post->user_id)->first();
+
+        $comments = comment::join("users", "users.id", "=", "comments.commenter_id")
+        ->where('post_id', '=', $id)->select(
         'comments.id',
         'comments.comment',
         'comments.post_id',
         'comments.created_at',
         'comments.commenter_id',
-        'users.name')->get();
+        'users.name',
+        'users.img_path')->get();
 
         $replies = reply::join("users", "users.id", "=", "replies.user_id")->select(
         'replies.id',
@@ -55,9 +63,11 @@ class PostController extends Controller
         'replies.reply',
         'replies.created_at',
         'users.name',
-        'replies.comment_id')->get();
+        'replies.comment_id',
+        'replies.reply_id',
+        'users.img_path')->get();
             
-        return view('posts.show', ['post' => $post, 'comments' => $comments, 'replies' => $replies]);
+        return view('posts.show', ['post' => $post, 'comments' => $comments, 'replies' => $replies, 'author' => $author]);
 
     }
 
