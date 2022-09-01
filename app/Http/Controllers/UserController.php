@@ -109,4 +109,13 @@ class UserController extends Controller
 
         return redirect()->back()->with('updated','Profile Updated!');
     }
+
+    public function destroy($id){
+
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect('/');
+    }
 }

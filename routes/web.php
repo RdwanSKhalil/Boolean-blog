@@ -41,6 +41,7 @@ Route::post('/reply/edit/{id}', [ReplyController::class, 'edit'])->name('edit-re
 Route::post('/user/image/{id}', [UserController::class, 'storeImg'])->name('user.store-img');
 Route::post('/user/info-change/{id}', [UserController::class, 'updateInfo'])->name('user.info-change');
 Route::post('/reply/reply/{id}', [ReplyController::class, 'storeReply'])->name('reply.store-reply');
+Route::post('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
 // Delete Requests
 Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy')->middleware("auth");

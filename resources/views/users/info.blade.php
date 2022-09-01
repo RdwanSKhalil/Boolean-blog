@@ -27,4 +27,10 @@
             <a href="{{ route('user.show', $user->id) }}" class="cos-btn">Cancel</a>
         </div>
     </form>
+    <form action="{{ route('user.destroy', Auth::user()->id) }}" method="POST" class="form-info" enctype="multipart/form-data">
+        @csrf
+        <div class="btn-div">
+            <input type="submit" class="cos-btn form-btn" value="Delete Account">
+        </div>
+    </form>
 @endsection
