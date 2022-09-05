@@ -7,30 +7,30 @@
             <h4 class="">{{ session('updated') }}</h4>
         </div>
         <div class="inputs">
-            <label for="title" class="input-label">Name:</label>
-            <input type="name" class="input-field" name="name" value="{{ $user->name }}">
+            <label for="title" class="form-label">Name:</label>
+            <input type="name" class="form-control" name="name" value="{{ $user->name }}">
         </div>
         <div class="inputs">
-            <label for="email" class="input-label">Email:</label>
-            <input type="text" class="input-field" name="email" value="{{ $user->email }}">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" class="form-control" name="email" value="{{ $user->email }}">
         </div>
         <div class="inputs">
-            <label for="password" class="input-label">Your Password:</label>
-            <input type="text" class="input-field" name="password">
+            <label for="password" class="form-label">Your Password:</label>
+            <input type="text" class="form-control" name="password">
         </div>
         <div class="inputs">
-            <label for="new_password" class="input-label">New Password:</label>
-            <input type="text" class="input-field" name="new_password">
+            <label for="new_password" class="form-label">New Password:</label>
+            <input type="text" class="form-control" name="new_password">
         </div>
         <div class="btn-div">
-            <input type="submit" class="cos-btn form-btn" value="Update">
-            <a href="{{ route('user.show', $user->id) }}" class="cos-btn">Cancel</a>
+            <input type="submit" class="btn btn-success" value="Update">
+            <a href="{{ route('user.show', $user->id) }}" class="btn btn-danger">Cancel</a>
         </div>
     </form>
     <form action="{{ route('user.destroy', Auth::user()->id) }}" method="POST" class="form-info" enctype="multipart/form-data">
         @csrf
         <div class="btn-div">
-            <input type="submit" class="cos-btn form-btn" value="Delete Account">
+            <input type="submit" class="btn btn-danger" value="Delete Account">
         </div>
     </form>
 @endsection

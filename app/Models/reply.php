@@ -13,4 +13,20 @@ class reply extends Model
 
         return $this->belongsTo(User::class);
     }
+
+    public function post(){
+        return $this->belongsTo(post::class);
+    }
+
+    public function comment(){
+        return $this->belongsTo(comment::class);
+    }
+
+    public function reply(){
+        return $this->belongsTo(reply::class);
+    }
+
+    public function replies(){
+        return $this->hasMany(reply::class);
+    }
 }

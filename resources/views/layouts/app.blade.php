@@ -17,6 +17,12 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Get Tiny MCE component -->
+    @yield('tinyMCE')
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -33,6 +39,8 @@
                         <div class="dropdown">
                             <a class="user-profile" href="{{ route('user.show', Auth::user()->id) }}">{{ Auth::user()->name }}</a>
                             <div class="dropdown-content">
+                                <a href="{{ route('user.posts', Auth::user()->id) }}">Posts</a>
+                                <a href="{{ route('user.comments', Auth::user()->id) }}">Comments</a>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ __('Logout') }}</a>
                             </div>
                         </div>
@@ -61,6 +69,8 @@
         </ul>
     </footer>
 
+    <!--Importing Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 </body>
 
 </html>

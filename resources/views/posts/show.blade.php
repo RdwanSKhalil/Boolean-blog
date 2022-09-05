@@ -9,29 +9,16 @@
         </div>
         
         <div class="body-div">
-
-            <div class="controls">
-                @if(Auth::check())
-                    @if(Auth::user()->id == $post->user_id)
-                        <form action="{{ route('post.destroy', $post->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="cos-btn delete-btn">Delete</button>
-                        </form>
-                    @endif
-                @endif
-            </div>
-                
             <div class="header-div">
                 <h1>{{ $post->title }}</h1>
                 <div>
-                    <img class="author-img" src="../{{ $author->img_path }}" alt="author-img">
+                    <img class="author-img" src="../{{ $post->user->img_path }}" alt="author-img">
                     <h6>Author: <strong><a href="{{ route('user.show', $post->user_id) }}">{{ $post->author }}</a></strong> - Date Published: {{ $post->created_at->toDateString(); }}</h6>
                 </div>
             </div>
 
             <div class="text-div">
-                <p>{{ $post->text }}</p>
+                {!! $post->text !!}
             </div>
 
         </div>
@@ -49,88 +36,114 @@
                         </ul>
                     </div>
                 @endif
-                <textarea id='comment' name="comment" cols="30" rows="3" placeholder="Comment Something..."></textarea>
-                <button class="cos-btn">Comment</button>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea">Comments</label>
+                  </div>
+                <button class="btn btn-success mb-1">Comment</button>
             </form>
+            @if(session('added'))
+                <div class="alert alert-success">
+                    {{session('added')}}
+                </div>
+            @endif
+            @if(session('deleted'))
+                <div class="alert alert-danger">
+                    {{ session('deleted') }}
+                </div>
+            @endif
+            @if(session('reply-deleted'))
+                <div class="alert alert-danger">
+                    {{ session('reply-deleted') }}
+                </div>
+            @endif
+            @if(session('reply-stored'))
+                <div class="alert alert-success">
+                    {{ session('reply-stored') }}
+                </div>
+            @endif
             <div class="comments">
-                @foreach($comments as $comment)
-                        <div class="commentors">
-                            <img class="commentator-img" src="/../{{ $comment->img_path }}" alt="commenter-img">
-                            <h5><a href="{{ route('user.show', $comment->commenter_id) }}"><strong>{{ $comment->name }}</strong></a> - </h5><h6>Commented on: {{ $comment->created_at->toDateString() }}</h6>
-                            <p>{{ $comment->comment }}</p>
+                @foreach($post->recentComments as $comment)
+                    <div class="card mb-3 mt-3 rounded">
+                        <div class="card-header">
+                            <img class="commentator-img inline me-3" src="/../{{ $comment->user->img_path }}" alt="commenter-img">
+                            <h5 class="inline"><a href="{{ route('user.show', $comment->user->id) }}"><strong>{{ $comment->user->name }}</strong></a> - </h5><h6 class="inline opacity-75">Commented on: {{ Carbon\Carbon::parse($comment->created_at)->format('Y-m-d') }}</h6>
+                        </div>
+                        <div class="card-body p-3">
+                            <p class="fs-5">{{ $comment->comment }}</p>
                             @if(Auth::check())
                                 @if(Auth::user()->id == $comment->commenter_id)
-                                    <a href="{{ route('edit-comment', $comment->id) }}" class="comment-controls">Edit</a>
+                                    <a href="{{ route('edit-comment', $comment->id) }}" class="comment-controls btn btn-dark"><i class="bi bi-pencil-fill"></i></a>
                                     <form action="{{ route('comment.destroy') }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="comment-controls">Delete</button>
+                                        <button type="submit" class="comment-controls btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                         <input type="hidden" name="comment-id" value="{{ $comment->id }}">
                                     </form>
                                 @endif
-                            <form action="{{ route('reply.store', $post->id) }}" method="POST">
-                                @csrf
-                                <button class="comment-controls">Reply</button>
-                                <input type="hidden" name="comment-id" value="{{ $comment->id }}">
-                                <input type="text" name="reply" class="reply">
-                                @if ($errors->get('reply'))
-                                    <span class="alert">
-                                        @foreach ($errors->all() as $error)
-                                            {{ $error }}
-                                        @endforeach
-                                    </span>
-                                @endif
-                            </form>
+                                <form action="{{ route('reply.store', $post->id) }}" method="POST">
+                                    @csrf
+                                    <button class="comment-controls btn btn-dark"><i class="bi bi-reply-fill"></i></button>
+                                    <input type="hidden" name="comment-id" value="{{ $comment->id }}">
+                                    <input type="text" name="reply" class="reply">
+                                </form>
                             @endif
                         </div>
+                    </div>
 
-                        @foreach($replies as $reply)
-                            @if($comment->id == $reply->comment_id && $reply->reply_id == null)
-                                <div class="replies">
-                                    <img class="commentator-img" src="/../{{ $reply->img_path }}" alt="commenter-img">
-                                    <h5><a href="{{ route('user.show', $reply->user_id) }}"><strong>{{ $reply->name }}</strong></a> - </h5><h6>Replied on: {{ $reply->created_at->toDateString() }}</h6>
-                                    <p>{{ $reply->reply }}</p>
+                    @foreach($comment->replies as $reply)
+                        @if($reply->reply_id == null)
+                            <div class="card mb-3 mt-3 rounded ms-4">
+                                <div class="card-header">
+                                    <img class="commentator-img inline me-3" src="/../{{ $reply->user->img_path }}" alt="commenter-img">
+                                    <h5 class="inline"><a href="{{ route('user.show', $reply->user_id) }}"><strong>{{ $reply->user->name }}</strong></a> - </h5><h6 class="inline">Replied on: {{ $reply->created_at->toDateString() }}</h6>
+                                </div>
+                                <div class="card-body p-3">
+                                    <p class="fs-5">{{ $reply->reply }}</p>
                                     @if(Auth::check())
                                         @if(Auth::user()->id == $reply->user_id)
-                                            <a href="{{ route('edit-reply', $reply->id) }}" class="comment-controls">Edit</a>
+                                        <a href="{{ route('edit-comment', $comment->id) }}" class="comment-controls btn btn-dark"><i class="bi bi-pencil-fill"></i></a>
                                             <form action="{{ route('reply.destroy') }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="comment-controls">Delete</button>
+                                                <button type="submit" class="comment-controls btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                                 <input type="hidden" name="reply-id" value="{{ $reply->id }}">
                                             </form>
                                         @endif
                                         <form action="{{ route('reply.store-reply', $reply->id) }}" method="POST">
                                             @csrf
-                                            <button class="comment-controls">Reply</button>
+                                            <button class="comment-controls btn btn-dark"><i class="bi bi-reply-fill"></i></button>
                                             <input type="hidden" name="comment-id" value="{{ $comment->id }}">
                                             <input type="text" name="reply" class="reply">
                                         </form>
                                     @endif
                                 </div>
-                            @endif
-
-                            @foreach($replies as $reply_reply)
-                                @if($reply->id == $reply_reply->reply_id && $comment->id == $reply->comment_id)
-                                    <div class="replies reply-reply">
-                                        <img class="commentator-img" src="/../{{ $reply_reply->img_path }}" alt="commenter-img">
-                                        <h5><a href="{{ route('user.show', $reply_reply->user_id) }}"><strong>{{ $reply_reply->name }}</strong></a> - </h5><h6>Replied on: {{ $reply_reply->created_at->toDateString() }}</h6>
-                                        <p>{{ $reply_reply->reply }}</p>
-                                        @if(Auth::check())
-                                            @if(Auth::user()->id == $reply_reply->user_id)
-                                                <a href="{{ route('edit-reply', $reply_reply->id) }}" class="comment-controls">Edit</a>
-                                                <form action="{{ route('reply.destroy') }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="comment-controls">Delete</button>
-                                                    <input type="hidden" name="reply-id" value="{{ $reply_reply->id }}">
-                                                </form>
-                                            @endif
-                                        @endif
-                                    </div>
+                            </div>
+                        @endif
+                        
+                        @foreach($reply->replies as $reply)
+                        <div class="card mb-3 mt-3 rounded ms-5">
+                            <div class="card-header">
+                                <img class="commentator-img inline me-3" src="/../{{ $reply->user->img_path }}" alt="commenter-img">
+                                <h5 class="inline"><a href="{{ route('user.show', $reply->user_id) }}"><strong>{{ $reply->user->name }}</strong></a> - </h5><h6 class="inline">Replied on: {{ $reply->created_at->toDateString() }}</h6>
+                            </div>
+                            <div class="card-body p-3">
+                                <p class="fs-5">{{ $reply->reply }}</p>
+                                @if(Auth::check())
+                                    @if(Auth::user()->id == $reply->user_id)
+                                    <a href="{{ route('edit-comment', $comment->id) }}" class="comment-controls btn btn-dark"><i class="bi bi-pencil-fill"></i></a>
+                                        <form action="{{ route('reply.destroy') }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="comment-controls btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                            <input type="hidden" name="reply-id" value="{{ $reply->id }}">
+                                        </form>
+                                    @endif
                                 @endif
-                            @endforeach
+                            </div>
+                        </div>
                         @endforeach
+                    @endforeach
                 @endforeach
             </div>
         </div>

@@ -12,49 +12,27 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        $posts = $user->posts;
-
-        $postsCount = $posts->count();
-
-        $comments = $user->comments;
-
-        $commentsCount = $comments->count();
-
-        return view('users.show', ['user' => $user, 'postsCount' => $postsCount, 'commentsCount' => $commentsCount]);
+        return view('users.show', ['user' => $user]);
     }
 
     public function posts($id){
 
         $user = User::findOrFail($id);
 
-        $posts = DB::table('posts')->orderBy('created_at', 'desc')->where('user_id', '=' ,$user->id)->get();
-
-        foreach($posts as $post){
+        foreach($user->posts as $post){
             if(File::exists($post->img_path) == false){
                 $post->img_path = "images/placeholder-img.webp"; 
             }
         }
 
-        $postsCount = $posts->count();
-
-        $comments = $user->comments;
-
-        $commentsCount = $comments->count();
-
-        return view('users.posts', ['user' => $user, 'posts' => $posts, 'postsCount' => $postsCount, 'commentsCount' => $commentsCount]);
+        return view('users.posts', ['user' => $user]);
     }
 
     public function comments($id){
 
         $user = User::findOrFail($id);
 
-        $postsCount = $user->posts->count();
-
-        $comments = DB::table('comments')->orderBy('created_at', 'desc')->where('commenter_id', '=' ,$user->id)->get();
-
-        $commentsCount = $comments->count();
-
-        return view('users.comments', ['user' => $user, 'comments' => $comments, 'postsCount' => $postsCount, 'commentsCount' => $commentsCount]);
+        return view('users.comments', ['user' => $user]);
     }
 
     public function storeImg(Request $request, $id){
@@ -79,13 +57,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        $postsCount = $user->posts->count();;
-
-        $comments = $user->comments;
-
-        $commentsCount = $comments->count();
-
-        return view('users.info', ['user' => $user, 'postsCount' => $postsCount, 'commentsCount' => $commentsCount]);
+        return view('users.info', ['user' => $user]);
     }
 
     public function updateInfo(Request $request, $id){

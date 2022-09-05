@@ -34,15 +34,15 @@
             <h6><strong>Email Address:</strong> {{ $user->email }}</h6>
         </div>
         <div class="user-info">
-            <h6><strong>No. Posts:</strong> {{ $postsCount }}</h6>
-            <h6><strong>No. Comments:</strong> {{ $commentsCount }}</h6>
+            <h6><strong>No. Posts:</strong> {{ $user->posts->count() }}</h6>
+            <h6><strong>No. Comments:</strong> {{ $user->comments->count() }}</h6>
         </div>
-        <div class="user-nav">
-            <a href="{{ route('user.posts', $user->id) }}" class="btn">Posts</a>
-            <a href="{{ route('user.comments', $user->id) }}" class="btn">Comments</a>
+        <div class="btn-group user-nav" role="group" aria-label>
+            <a href="{{ route('user.posts', $user->id) }}" class="btn btn-primary">Posts</a>
+            <a href="{{ route('user.comments', $user->id) }}" class="btn btn-primary">Comments</a>
             @if(Auth::check())
                 @if(Auth::user()->id == $user->id)
-                    <a href="{{ route('user.info', $user->id) }}" class="btn">Change Your Info</a>
+                    <a href="{{ route('user.info', $user->id) }}" class="btn btn-primary">Change Your Info</a>
                 @endif
             @endif
         </div>

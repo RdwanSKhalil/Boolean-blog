@@ -24,7 +24,7 @@ class ReplyController extends Controller
 
         $reply->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('reply-stored', 'Your reply has been added');;
     }
 
     public function destroy(){
@@ -33,7 +33,7 @@ class ReplyController extends Controller
 
         $reply->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('reply-deleted', 'Your reply has been deleted!');
     }
 
     public function show($id){
@@ -71,6 +71,6 @@ class ReplyController extends Controller
 
         $reply->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('reply-stored', 'Your reply has been added');
     }
 }

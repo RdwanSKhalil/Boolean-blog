@@ -23,7 +23,7 @@ class CommentController extends Controller
 
         $comment->save();
         
-        return redirect()->back();
+        return redirect()->back()->with('added', 'Your comment has been added');
     }
 
     public function show($id){
@@ -49,6 +49,6 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('deleted', 'You have deleted your comment!');
     }
 }
