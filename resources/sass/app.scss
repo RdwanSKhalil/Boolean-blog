@@ -190,7 +190,7 @@ main{
     align-items: center;
     flex-wrap: wrap;
     .item{
-        width: 60%;
+        width: 100%;
     }
     .label{
         font-size: 20px;
@@ -211,14 +211,14 @@ main{
         margin-bottom: 10px;
         display: flex;
         justify-content: space-between;
-        width: 60%;
+        width: 100%;
         input{
             margin-right: 10px;
         }
     }
     .choose-image-div{
-        width: 60%;
-        margin-top: 20px;
+        width: 100%;
+        margin-top: 10px;
         label{
             margin-right: 10px;
         }
@@ -501,4 +501,14 @@ main{
                 font-size: 8px;
             }
         }
+}
+
+// Tiny MCE 
+/* make the toolbar wrap */
+.mceToolbar td {
+    display:table-row;
+    float: left;
+}
+.mceToolbar td:nth-of-type(11){
+    clear: left;
 }

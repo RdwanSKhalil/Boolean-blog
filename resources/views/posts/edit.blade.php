@@ -1,16 +1,19 @@
 @extends('layouts.app')
 
 @section('tinyMCE')
-    <script src="https://cdn.tiny.cloud/1/5ooaadfevtq6xn7vrf4bjpeaqyezzwdp3ie2tqdol4ofsm1z/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/5ooaadfevtq6xn7vrf4bjpeaqyezzwdp3ie2tqdol4ofsm1z/tinymce/4/tinymce.min.js"></script>
     <script>
         tinymce.init({
-            selector: 'textarea#tinyMCEEditor', // Replace this CSS selector to match the placeholder element for TinyMCE
-            plugins: 'code table lists',
-            toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist',
-            menubar: false,
-            resize: false,
-            height: 300,
-            width: 690,
+        selector: 'textarea#tinyMCEEditor',
+        height: 220,
+        theme: 'modern',
+        mobile: { theme: 'mobile' },
+        plugins: 'lists',
+        toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat',
+        menubar: false,
         });
     </script>
 @endsection
@@ -35,7 +38,7 @@
             <label for="title" class="item label label-title">Title:</label>
             <input type="text" class="item input input-title" name="title" value="{{ $post->title }}" id="title">
             <label for="text" class="item label label-body">Body:</label>
-            <textarea id="tinyMCEEditor" name="text" value="{{ $post->text }}" class="item" id="text" cols="30" rows="10"></textarea>
+            <textarea id="tinyMCEEditor" name="text" value="{{ $post->text }}" class="item" cols="30" rows="10"></textarea>
             <div class="btn-margin">
                 <input type="submit" class="btn btn-success" value="Post">
                 <a href="{{ route('home') }}" class="btn btn-danger">Cancel</a>
