@@ -36,7 +36,7 @@
             <input type="file" class="item input-file" id="img" name="imgPath" value="{{ old('imgPath') }}" accept=".gif,.jpg,.jpeg,.png">
         </div>
         <label for="title" class="item label label-title">Title:</label>
-        <input type="text" class="item input input-title" name="title" value="{{ old('title') }}" id="title">
+        <input type="text" class="form-control" name="title" value="{{ old('title') }}" id="title">
         <label for="text" class="item label label-body">Body:</label>
         <textarea id="tinyMCEEditor" name="text" value="{{ old('text') }}" class="item" rows="13"></textarea>
         <div class="btn-margin">
