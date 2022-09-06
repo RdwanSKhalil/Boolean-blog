@@ -11,7 +11,7 @@
             <div class="info">
                 <a href="{{ route('show-post', $post->id) }}"><h1 class="post-title">{{ $post->title }}</h1></a>
                 <h5 class="post-author">Author: {{ $post->author }} - Uploaded On: {{ Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}</h5>
-                <<div>
+                <div>
                     {!! Str::words($post->text, 50) !!}
                 </div>
                 <div class="controls">
